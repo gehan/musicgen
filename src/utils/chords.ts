@@ -16,21 +16,21 @@ export const MAJOR_KEYS = [
   "C#",
 ];
 export const MINOR_KEYS = [
-  "Abm",
-  "Ebm",
-  "Bbm",
-  "Fm",
-  "Cm",
-  "Gm",
-  "Dm",
-  "Am",
-  "Em",
-  "Bm",
-  "F#m",
-  "C#m",
-  "G#m",
-  "D#m",
-  "A#m",
+  "Ab",
+  "Eb",
+  "Bb",
+  "F",
+  "C",
+  "G",
+  "D",
+  "A",
+  "E",
+  "B",
+  "F#",
+  "C#",
+  "G#",
+  "D#",
+  "A#",
 ];
 
 export const STRUCTURES = [
@@ -104,8 +104,8 @@ export const getChordKeys = (key: KEYS_TYPE, type: STRUCTURES_TYPES) => {
       return keyPosRel > 0 ? keys[0] : keys[1];
     } else if (type === "minor") {
       // Check position in circle of fifths to determins sharps or flats
-      const aMinPosition = MINOR_KEYS.indexOf("Am");
-      const keyPosition = MINOR_KEYS.indexOf(`${key}m`);
+      const aMinPosition = MINOR_KEYS.indexOf("A");
+      const keyPosition = MINOR_KEYS.indexOf(key);
       const keyPosRel = keyPosition - aMinPosition;
 
       // Sharps if after Am, flats if before
@@ -148,13 +148,26 @@ export const changeChordKeysForOctave = (
   return notesWithOctaves;
 };
 
-export const getRandomChord = () => {
-  const keyLetter = MAJOR_KEYS[Math.round(Math.random() * MAJOR_KEYS.length)];
-  const type = STRUCTURES[Math.round(Math.random() * STRUCTURES.length)];
-  const chord: Chord = {
-    keyLetter,
-    type,
-  };
+export const getRandomChord = (): Chord => {
+  // Just guess major and minor initially
+  const type = STRUCTURES[Math.round(Math.random() * 1)];
 
-  return chord;
+  if (type === "minor") {
+    const keyLetter =
+      MINOR_KEYS[Math.round(Math.random() * (MINOR_KEYS.length - 1))];
+    return {
+      keyLetter,
+      type,
+    };
+  } else {
+    const keyLetter =
+      MAJOR_KEYS[Math.round(Math.random() * (MAJOR_KEYS.length - 1))];
+    return {
+      keyLetter,
+      type,
+    };
+  }
 };
+
+export const isGuessCorrect = (guess: Chord, answer: Chord) =>
+  guess.keyLetter === answer.keyLetter && answer.type === guess.type;

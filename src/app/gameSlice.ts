@@ -1,48 +1,42 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { Chord, getRandomChord } from "../utils/chords";
 
 export interface GameState {
-  started: boolean;
   score: number;
   questions: Chord[];
-  answers: Chord[];
 }
 
 const initialState: GameState = {
-  started: false,
   score: 0,
   questions: [],
-  answers: [],
 };
 
 export const gameSlice = createSlice({
   name: "game",
   initialState,
   reducers: {
-    startGame: () => {
-      return {
-        ...initialState,
-        started: true,
-      };
-    },
     nextQuestion: (state) => {
       const chord = getRandomChord();
       state.questions.push(chord);
     },
-    recordAnswer: (state, action: PayloadAction<Chord>) => {
-      const lastAnswer = state.questions[state.questions.length - 1];
-      state.answers.push(action.payload);
+    recordScore: (state) => {
       state.score++;
     },
   },
   selectors: {
-    selectStarted: (state) => state.started,
+    selectScore: (state) => state.score,
+    selectQuestion: (state) => {
+      if (state.questions.length === 0) {
+        return undefined;
+      } else {
+        return state.questions[state.questions.length - 1];
+      }
+    },
   },
 });
 
-export const { startGame, nextQuestion, recordAnswer } = gameSlice.actions;
-export const { selectStarted } = gameSlice.selectors;
+export const { nextQuestion, recordScore } = gameSlice.actions;
+export const { selectScore, selectQuestion } = gameSlice.selectors;
 
 export default gameSlice.reducer;

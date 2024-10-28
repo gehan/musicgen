@@ -4,6 +4,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 
 import {
+  isGuessCorrect,
   KEYS_TYPE,
   MAJOR_KEYS,
   STRUCTURES,
@@ -54,7 +55,10 @@ export const GuessChord = ({ keyLetter, type, onComplete }: Props) => {
     if (!selectedKey || !selectedType) {
       return undefined;
     }
-    return selectedKey === keyLetter && selectedType === type;
+    return isGuessCorrect(
+      { keyLetter: selectedKey, type: selectedType },
+      { keyLetter, type },
+    );
   }, [keyLetter, type, selectedType, selectedKey]);
 
   // Trigger onComplete after result known

@@ -53,3 +53,12 @@ export const EbMajorTrebleOctave4: Story = {
     octave: 3,
   },
 };
+
+export const EbMinorTrebleOctave4: Story = {
+  args: {
+    keyLetter: "Eb",
+    type: "minor",
+    clef: "bass",
+    octave: 3,
+  },
+};

@@ -1,19 +1,12 @@
 import { Meta, StoryObj } from "@storybook/react";
 import App from "./App";
 import { Provider } from "react-redux";
-import { store } from "./app/store";
+import { makeStore } from "./app/store";
 import { userEvent, within } from "@storybook/test";
 
 const meta: Meta<typeof App> = {
   title: "App",
   component: App,
-  decorators: [
-    (Story) => (
-      <Provider store={store}>
-        <Story />
-      </Provider>
-    ),
-  ],
 };
 
 export default meta;
@@ -21,6 +14,13 @@ export default meta;
 type Story = StoryObj<typeof App>;
 
 export const StartGame: Story = {
+  decorators: [
+    (Story) => (
+      <Provider store={makeStore()}>
+        <Story />
+      </Provider>
+    ),
+  ],
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
 
@@ -28,10 +28,12 @@ export const StartGame: Story = {
       const startGame = await canvas.findByRole("button", {
         name: "Start game",
       });
-
       await userEvent.click(startGame);
+    });
 
-      await canvas.findByText("Game started");
+    await step("Show first question and score as zero", async () => {
+      await canvas.findByText("Score: 0");
+      await canvas.findByText("Select chord");
     });
   },
 };
