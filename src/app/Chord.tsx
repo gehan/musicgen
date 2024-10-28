@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import {
   Renderer,
   Stave,
@@ -12,8 +13,7 @@ import {
   getChordKeys,
   KEYS_TYPE,
   STRUCTURES_TYPES,
-} from "./utils/chords";
-import { useEffect, useRef } from "react";
+} from "../utils/chords";
 
 type Props = {
   keyLetter: KEYS_TYPE;

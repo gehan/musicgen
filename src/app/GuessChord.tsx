@@ -1,4 +1,4 @@
-import { ComponentProps, useEffect, useMemo, useState } from "react";
+import { ComponentProps, useEffect, useMemo, useRef, useState } from "react";
 import { Box, Button, ButtonGroup, Stack, Typography } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -9,7 +9,7 @@ import {
   MAJOR_KEYS,
   STRUCTURES,
   STRUCTURES_TYPES,
-} from "./utils/chords";
+} from "../utils/chords";
 import { Chord } from "./Chord";
 
 type Props = {
@@ -42,6 +42,7 @@ export const GuessChord = ({ keyLetter, type, onComplete }: Props) => {
   // Selection
   const [selectedKey, setSelectedKey] = useState<KEYS_TYPE>();
   const [selectedType, setSelectedType] = useState<STRUCTURES_TYPES>();
+  const onCompleteFiredRef = useRef(false);
 
   // Get random clef and octave
   const [clef, setClef] =
@@ -63,7 +64,8 @@ export const GuessChord = ({ keyLetter, type, onComplete }: Props) => {
 
   // Trigger onComplete after result known
   useEffect(() => {
-    if (result !== undefined) {
+    if (result !== undefined && !onCompleteFiredRef.current) {
+      onCompleteFiredRef.current = true;
       onComplete(result);
     }
   }, [result, onComplete]);
@@ -74,6 +76,7 @@ export const GuessChord = ({ keyLetter, type, onComplete }: Props) => {
     setSelectedType(undefined);
     const clef = getClef();
     const octave = getOctave(clef);
+    onCompleteFiredRef.current = false;
     setClef(clef);
     setOctave(octave);
   }, [keyLetter, type]);

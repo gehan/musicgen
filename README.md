@@ -1,50 +1,35 @@
-# React + TypeScript + Vite
+# Guess that chord
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Small project to help with sight-reading. It displays a chord at random on a 
+treble or bass clef and you have to guess what it is. It doesn't quite generate 
+chords correctly for the key signature but it's a start. 
 
-Currently, two official plugins are available:
+## To run
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+npm install
+npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## To develop
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Run unit tests
+```
+npm run test
+```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+To run storybook 
+```
+npm run storybook
+```
+
+To run storybook tests on CLI, ensure Storybook is running and run
+```
+npm run test-storybook
+```
+
+This assumes playwright is installed already:
+
+```
+npx playwright install
 ```

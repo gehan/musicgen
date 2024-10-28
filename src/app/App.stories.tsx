@@ -1,8 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react";
-import App from "./App";
 import { Provider } from "react-redux";
-import { makeStore } from "./app/store";
 import { userEvent, within } from "@storybook/test";
+
+import App from "./App";
+import { makeStore } from "./store";
 
 const meta: Meta<typeof App> = {
   title: "App",

@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+
 import { Chord } from "./Chord";
 
 const meta: Meta<typeof Chord> = {
