@@ -33,7 +33,7 @@ export const gameSlice = createSlice({
     },
     recordAnswer: (state, action: PayloadAction<Chord>) => {
       const lastAnswer = state.questions[state.questions.length - 1];
-      state.answers.push[action.payload];
+      state.answers.push(action.payload);
       state.score++;
     },
   },
@@ -42,7 +42,7 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { startGame, nextQuestion, addScore } = gameSlice.actions;
+export const { startGame, nextQuestion, recordAnswer } = gameSlice.actions;
 export const { selectStarted } = gameSlice.selectors;
 
 export default gameSlice.reducer;
